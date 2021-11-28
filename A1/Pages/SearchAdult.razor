@@ -1,7 +1,6 @@
 ﻿@page "/SearchAdult"
-@using Models
-@inject FileContext _fileContext
-@using FileData
+@using A1.Models
+@using Entities
 
 <h3>SearchAdult</h3>
 
@@ -65,29 +64,31 @@ else
 
 @code {
     
+    [Inject] public IAdultService Service { get; set; }
+
     private IList<Adult> _adultList;
     private IList<Adult> _adultListToShow;
     private string _filterName;
 
     protected override async Task OnInitializedAsync()
     {
-        _adultList = _fileContext.Adults;
+        _adultList = await Service.ReadData();
         _adultListToShow = _adultList;
     }
 
-    private void RemoveAdult(Adult adult)
+    private async Task RemoveAdult(Adult adult)
     {
         _adultList.Remove(adult);
-        _fileContext.SaveChanges(_adultList);
+        await Service.SaveChanges(_adultList);
     }
 
-    private void FilterByName(ChangeEventArgs changeEventArgs)
+    private async Task FilterByName(ChangeEventArgs changeEventArgs)
     {
         _filterName = changeEventArgs.Value?.ToString();
-        ExecuteFilter(_filterName);
+        await ExecuteFilter(_filterName);
     }
 
-    private void ExecuteFilter(string filterName)
+    private async Task ExecuteFilter(string filterName)
     {
         IList<Adult> tempList = new List<Adult>();
         

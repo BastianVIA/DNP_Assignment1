@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Security.Claims;
 using System.Text.Json;
 using System.Threading.Tasks;
-using A1.Data;
+using A1.Models;
+using Entities;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.JSInterop;
-using Models;
 
 namespace A1.Authentication {
 public class CustomAuthenticationStateProvider : AuthenticationStateProvider {
@@ -36,17 +36,17 @@ public class CustomAuthenticationStateProvider : AuthenticationStateProvider {
         return await Task.FromResult(new AuthenticationState(cachedClaimsPrincipal));
     }
 
-    public void ValidateLogin(string username, string password) {
+    public async Task ValidateLogin(string username, string password) {
         Console.WriteLine("Validating log in");
         if (string.IsNullOrEmpty(username)) throw new Exception("Enter username");
         if (string.IsNullOrEmpty(password)) throw new Exception("Enter password");
 
         ClaimsIdentity identity = new ClaimsIdentity();
         try {
-            User user = userService.ValidateUser(username, password);
+            User user = userService.ValidateUser(username, password).Result;
             identity = SetupClaimsForUser(user);
             string serialisedData = JsonSerializer.Serialize(user);
-            jsRuntime.InvokeVoidAsync("sessionStorage.setItem", "currentUser", serialisedData);
+            await jsRuntime.InvokeVoidAsync("sessionStorage.setItem", "currentUser", serialisedData);
             cachedUser = user;
         } catch (Exception e) {
             throw e;
@@ -56,10 +56,10 @@ public class CustomAuthenticationStateProvider : AuthenticationStateProvider {
             Task.FromResult(new AuthenticationState(new ClaimsPrincipal(identity))));
     }
 
-    public void Logout() {
+    public async Task Logout() {
         cachedUser = null;
         var user = new ClaimsPrincipal(new ClaimsIdentity());
-        jsRuntime.InvokeVoidAsync("sessionStorage.setItem", "currentUser", "");
+        await jsRuntime.InvokeVoidAsync("sessionStorage.setItem", "currentUser", "");
         NotifyAuthenticationStateChanged(Task.FromResult(new AuthenticationState(user)));
     }
 

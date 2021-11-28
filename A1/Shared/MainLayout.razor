@@ -1,5 +1,4 @@
 @inherits LayoutComponentBase
-@using LoginComponent
 @inject NavigationManager NavigationManager
 
 <div class="page">
@@ -19,18 +18,18 @@
     </div>
 </div>
 
-@* @code{  *@
-@* *@
-@*     [CascadingParameter] protected Task<AuthenticationState> AuthStat { get; set; } *@
-@* *@
-@*     protected override async Task OnInitializedAsync() *@
-@*     { *@
-@*         await base.OnInitializedAsync(); *@
-@*         var user = (await AuthStat).User; *@
-@*         if(!user.Identity.IsAuthenticated) *@
-@*         { *@
-@*             NavigationManager.NavigateTo($"/Login"); *@
-@*     // NavigationManager.NavigateTo($"/Login?returnUrl={Uri.EscapeDataString(NavigationManager.Uri)}"); *@
-@*         } *@
-@*     } *@
-@* } *@
+@code{
+
+    [CascadingParameter] protected Task<AuthenticationState> AuthStat { get; set; }
+    
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+        var user = (await AuthStat).User;
+        if(!user.Identity.IsAuthenticated)
+        {
+            NavigationManager.NavigateTo($"/Login");
+    NavigationManager.NavigateTo($"/Login?returnUrl={Uri.EscapeDataString(NavigationManager.Uri)}");
+        }
+    }
+}

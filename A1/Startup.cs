@@ -1,8 +1,8 @@
 using System.Security.Claims;
 using A1.Authentication;
-using A1.Data;
-using A1.Data.Impl;
-using FileData;
+using A1.Models;
+using A1.Models.Impl;
+using A1.Networking;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Hosting;
@@ -27,14 +27,15 @@ namespace A1
         {
             services.AddRazorPages();
             services.AddServerSideBlazor();
-            services.AddScoped<FileContext>();
-            services.AddScoped<IUserService, InMemoryUserService>();
+            services.AddScoped<IClient, Client>();
+            services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IAdultService, AdultService>();
             services.AddScoped<AuthenticationStateProvider, CustomAuthenticationStateProvider>();
             
             services.AddAuthorization(options => {
                 options.AddPolicy("SecurityLevel4", a =>
                     a.RequireAuthenticatedUser().RequireClaim("Level", "4", "5"));
-
+            
                 options.AddPolicy("SecurityLevel2", policy =>
                     policy.RequireAuthenticatedUser().RequireAssertion(context => {
                         Claim levelClaim = context.User.FindFirst(claim => claim.Type.Equals("Level"));

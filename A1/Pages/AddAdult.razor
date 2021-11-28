@@ -1,7 +1,6 @@
 ﻿@page "/AddAdult"
-@using Models
-@using FileData
-@inject FileContext _fileContext
+@using A1.Models
+@using Entities
 <h3>AddAdult</h3>
 
 <EditForm Model="@adult" OnValidSubmit="@_AddAdult">
@@ -56,6 +55,9 @@
 </EditForm>
 
 @code {
+    
+    [Inject] public IAdultService Service { get; set; }
+    
     private IList<Adult> adultList = new List<Adult>();
     private Adult adult = new Adult();
     private Job job = new Job();
@@ -70,12 +72,11 @@
     private string sex;
     private string jobTitle;
     private int salary;
-    private string errorMessage;
 
 
     private async Task _AddAdult()
     {
-        errorMessage = "";
+       
         try
         {
             job.JobTitle = jobTitle;
@@ -92,9 +93,9 @@
             adult.Height = height;
             adult.Sex = sex;
             
-            adultList = _fileContext.Adults;
+            adultList = Service.ReadData().Result;
             adultList.Add(adult);
-            _fileContext.SaveChanges(adultList);
+            await Service.SaveChanges(adultList);
         }
         catch (Exception e)
         {

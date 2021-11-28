@@ -1,17 +1,76 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\basti\\RiderProjects\\A1\\A1\\A1.csproj": {}
+    "C:\\Users\\basti\\RiderProjects\\DNP_Assignment2\\A1\\A1.csproj": {}
   },
   "projects": {
-    "C:\\Users\\basti\\RiderProjects\\A1\\A1\\A1.csproj": {
+    "C:\\Users\\basti\\RiderProjects\\DNP_Assignment2\\A1\\A1.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\basti\\RiderProjects\\A1\\A1\\A1.csproj",
+        "projectUniqueName": "C:\\Users\\basti\\RiderProjects\\DNP_Assignment2\\A1\\A1.csproj",
         "projectName": "A1",
-        "projectPath": "C:\\Users\\basti\\RiderProjects\\A1\\A1\\A1.csproj",
+        "projectPath": "C:\\Users\\basti\\RiderProjects\\DNP_Assignment2\\A1\\A1.csproj",
         "packagesPath": "C:\\Users\\basti\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\basti\\RiderProjects\\A1\\A1\\obj\\",
+        "outputPath": "C:\\Users\\basti\\RiderProjects\\DNP_Assignment2\\A1\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\basti\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net5.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net5.0": {
+            "targetAlias": "net5.0",
+            "projectReferences": {
+              "C:\\Users\\basti\\RiderProjects\\DNP_Assignment2\\Entities\\Entities.csproj": {
+                "projectPath": "C:\\Users\\basti\\RiderProjects\\DNP_Assignment2\\Entities\\Entities.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net5.0": {
+          "targetAlias": "net5.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.AspNetCore.App": {
+              "privateAssets": "none"
+            },
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.402\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\basti\\RiderProjects\\DNP_Assignment2\\Entities\\Entities.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\basti\\RiderProjects\\DNP_Assignment2\\Entities\\Entities.csproj",
+        "projectName": "Entities",
+        "projectPath": "C:\\Users\\basti\\RiderProjects\\DNP_Assignment2\\Entities\\Entities.csproj",
+        "packagesPath": "C:\\Users\\basti\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\basti\\RiderProjects\\DNP_Assignment2\\Entities\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\basti\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -48,14 +107,11 @@
           "assetTargetFallback": true,
           "warn": true,
           "frameworkReferences": {
-            "Microsoft.AspNetCore.App": {
-              "privateAssets": "none"
-            },
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Users\\basti\\.dotnet\\sdk\\5.0.400\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.402\\RuntimeIdentifierGraph.json"
         }
       }
     }

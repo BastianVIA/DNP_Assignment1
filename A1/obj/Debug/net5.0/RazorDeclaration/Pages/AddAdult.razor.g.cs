@@ -13,85 +13,85 @@ namespace A1.Pages
     using System.Threading.Tasks;
     using Microsoft.AspNetCore.Components;
 #nullable restore
-#line 1 "C:\Users\basti\RiderProjects\A1\A1\_Imports.razor"
+#line 1 "C:\Users\basti\RiderProjects\DNP_Assignment2\A1\_Imports.razor"
 using System.Net.Http;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 2 "C:\Users\basti\RiderProjects\A1\A1\_Imports.razor"
+#line 2 "C:\Users\basti\RiderProjects\DNP_Assignment2\A1\_Imports.razor"
 using Microsoft.AspNetCore.Authorization;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 3 "C:\Users\basti\RiderProjects\A1\A1\_Imports.razor"
+#line 3 "C:\Users\basti\RiderProjects\DNP_Assignment2\A1\_Imports.razor"
 using Microsoft.AspNetCore.Components.Authorization;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 4 "C:\Users\basti\RiderProjects\A1\A1\_Imports.razor"
+#line 4 "C:\Users\basti\RiderProjects\DNP_Assignment2\A1\_Imports.razor"
 using Microsoft.AspNetCore.Components.Forms;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 5 "C:\Users\basti\RiderProjects\A1\A1\_Imports.razor"
+#line 5 "C:\Users\basti\RiderProjects\DNP_Assignment2\A1\_Imports.razor"
 using Microsoft.AspNetCore.Components.Routing;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 6 "C:\Users\basti\RiderProjects\A1\A1\_Imports.razor"
+#line 6 "C:\Users\basti\RiderProjects\DNP_Assignment2\A1\_Imports.razor"
 using Microsoft.AspNetCore.Components.Web;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 7 "C:\Users\basti\RiderProjects\A1\A1\_Imports.razor"
+#line 7 "C:\Users\basti\RiderProjects\DNP_Assignment2\A1\_Imports.razor"
 using Microsoft.AspNetCore.Components.Web.Virtualization;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 8 "C:\Users\basti\RiderProjects\A1\A1\_Imports.razor"
+#line 8 "C:\Users\basti\RiderProjects\DNP_Assignment2\A1\_Imports.razor"
 using Microsoft.JSInterop;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 9 "C:\Users\basti\RiderProjects\A1\A1\_Imports.razor"
+#line 9 "C:\Users\basti\RiderProjects\DNP_Assignment2\A1\_Imports.razor"
 using A1;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 10 "C:\Users\basti\RiderProjects\A1\A1\_Imports.razor"
+#line 10 "C:\Users\basti\RiderProjects\DNP_Assignment2\A1\_Imports.razor"
 using A1.Shared;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 2 "C:\Users\basti\RiderProjects\A1\A1\Pages\AddAdult.razor"
-using Models;
+#line 2 "C:\Users\basti\RiderProjects\DNP_Assignment2\A1\Pages\AddAdult.razor"
+using A1.Models;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 3 "C:\Users\basti\RiderProjects\A1\A1\Pages\AddAdult.razor"
-using FileData;
+#line 3 "C:\Users\basti\RiderProjects\DNP_Assignment2\A1\Pages\AddAdult.razor"
+using Entities;
 
 #line default
 #line hidden
@@ -105,8 +105,11 @@ using FileData;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 58 "C:\Users\basti\RiderProjects\A1\A1\Pages\AddAdult.razor"
+#line 57 "C:\Users\basti\RiderProjects\DNP_Assignment2\A1\Pages\AddAdult.razor"
        
+    
+    [Inject] public IAdultService Service { get; set; }
+    
     private IList<Adult> adultList = new List<Adult>();
     private Adult adult = new Adult();
     private Job job = new Job();
@@ -121,12 +124,11 @@ using FileData;
     private string sex;
     private string jobTitle;
     private int salary;
-    private string errorMessage;
 
 
     private async Task _AddAdult()
     {
-        errorMessage = "";
+       
         try
         {
             job.JobTitle = jobTitle;
@@ -143,9 +145,9 @@ using FileData;
             adult.Height = height;
             adult.Sex = sex;
             
-            adultList = _fileContext.Adults;
+            adultList = Service.ReadData().Result;
             adultList.Add(adult);
-            _fileContext.SaveChanges(adultList);
+            await Service.SaveChanges(adultList);
         }
         catch (Exception e)
         {
@@ -154,16 +156,10 @@ using FileData;
         }
     }
 
-    private void Add()
-    {
-        
-    }
-
 
 #line default
 #line hidden
 #nullable disable
-        [global::Microsoft.AspNetCore.Components.InjectAttribute] private FileContext _fileContext { get; set; }
     }
 }
 #pragma warning restore 1591
